@@ -6,8 +6,11 @@ setup(
     name='envious',
     version=envious.__version__,
     description='Easy injection of environment variables from .env files.',
+    url='https://github.com/BendingSpoons/envious',
     long_description=open('README.rst').read(),
     author='Matteo Danieli',
     author_email='md@bendingspoons.dk',
-    packages = ['envious'],
+    keywords=['env', 'environment', 'virtualenv', 'multiple', 'configuration'],
+    packages=['envious'],
+    license='MIT',
 )
