@@ -10,8 +10,9 @@ def load_env():
     environment variables are not already set, they will be set according to
     the values listed in the file.
     """
+    env_file = os.environ.get('ENV_FILE', '.env')
     try:
-        variables = open('.env').read().splitlines()
+        variables = open(env_file).read().splitlines()
         for v in variables:
             if '=' in v:
                 key, value = v.split('=')

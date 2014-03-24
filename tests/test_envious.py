@@ -26,6 +26,7 @@ class EnviousTest(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove('.env')
+            os.remove('.env2')
         except OSError:
             pass
         os.environ.clear()
@@ -33,8 +34,8 @@ class EnviousTest(unittest.TestCase):
             os.environ[k] = self.env[k]
         super(EnviousTest, self).tearDown()
 
-    def _write_to_env_file(self, content):
-        with open('.env', 'w') as f:
+    def _write_to_env_file(self, content, filename='.env'):
+        with open(filename, 'w') as f:
             f.write(content)
 
     def _set_variable(self, key, value):
@@ -74,3 +75,9 @@ class EnviousTest(unittest.TestCase):
         self._assert_variable('ENVIRONMENT', 'development')
         self._assert_variable('MONGODB_URL', 'http://localhost:27017/mydb')
         self._assert_variable('REDIS_URL', 'http://localhost:6379/0')
+
+    def test_differentEnvFileSpecified_otherEnvironmentVariablesSet(self):
+        self._set_variable('ENV_FILE', '.env2')
+        self._write_to_env_file('NEW_VAR=new_value', filename='.env2')
+        self._execute_script()
+        self._assert_variable('NEW_VAR', 'new_value')
