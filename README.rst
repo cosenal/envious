@@ -45,3 +45,15 @@ Then add the following to the Python app entry point:
     from envious import load_env
 
     load_env()
+
+If you want to manage multiple configuration files for the same project, you're
+covered. Create multiple configuration files, and then specify the one you want
+to use by providing an environment variable named ``ENV_FILE``:
+
+.. code-block:: bash
+
+    $ echo MONGODB_URL=http://localhost:27017/myseconddb > .env2
+    $ ENV_FILE=.env2 python my_script.py
+
+The script will see the alternative value for the environment value
+``MONGODB_URL``. 
