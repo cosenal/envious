@@ -15,7 +15,7 @@ def load_env():
         variables = open(env_file).read().splitlines()
         for v in variables:
             if '=' in v:
-                key, value = v.split('=')
+                key, value = v.split('=', 1)
                 if not key in os.environ:
                     os.environ[key] = value
     except IOError:
