@@ -9,7 +9,7 @@ setup(
     url='https://github.com/BendingSpoons/envious',
     long_description=open('README.rst').read(),
     author='Matteo Danieli',
-    author_email='md@bendingspoons.dk',
+    author_email='md@bendingspoons.com',
     keywords=['env', 'environment', 'virtualenv', 'multiple', 'configuration'],
     packages=['envious'],
     license='MIT',
