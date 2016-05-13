@@ -81,3 +81,30 @@ class EnviousTest(unittest.TestCase):
         self._write_to_env_file('NEW_VAR=new_value', filename='.env2')
         self._execute_script()
         self._assert_variable('NEW_VAR', 'new_value')
+
+    def test_envFileContainsMultipleEqualSigns_envVariablesSet(self):
+        self._write_to_env_file('NEW_VAR=variable=containing=multiple=equal=signs')
+        self._execute_script()
+        self._assert_variable('NEW_VAR', 'variable=containing=multiple=equal=signs')
+
+    def test_envFileContainsSingleQuoteEnclosedVariables_envVariablesSet(self):
+        self._write_to_env_file("NEW_VAR='quote_enclosed_variable'")
+        self._execute_script()
+        self._assert_variable('NEW_VAR', 'quote_enclosed_variable')
+
+    def test_envFileContainsDoubleQuotesEnclosedVariables_envVariablesSet(self):
+        self._write_to_env_file('NEW_VAR="double_quote_enclosed_variable"')
+        self._execute_script()
+        self._assert_variable('NEW_VAR', 'double_quote_enclosed_variable')
+
+    def test_envFileContainsMultipleLines_newlineCharacterReadCorrectly(self):
+        self._write_to_env_file("NEW_LINE_VAR=\"this is line 1\\nand this is line 2\"")
+        self._execute_script()
+        assert len(os.environ['NEW_LINE_VAR'].splitlines()) == 2
+
+    def test_envFileContainsCommentedLines_linesIgnored(self):
+        self._set_variable('NEW_VAR', 'old_value')
+        self._write_to_env_file("# NEW_VAR=new_value")
+        self._execute_script()
+        self._assert_variable('NEW_VAR', 'old_value')
+        assert '# NEW_VAR' not in os.environ
