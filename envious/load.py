@@ -1,4 +1,5 @@
 import os
+import ast
 
 __author__ = 'Matteo Danieli'
 
@@ -17,6 +18,9 @@ def load_env():
             if '=' in v:
                 key, value = v.split('=', 1)
                 if not key in os.environ:
-                    os.environ[key] = value
+                    if value.startswith('"') and value.endswith('"'):
+                        os.environ[key] = ast.literal_eval(value)
+                    else:
+                        os.environ[key] = value
     except IOError:
         pass
