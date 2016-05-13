@@ -4,7 +4,7 @@ import ast
 __author__ = 'Matteo Danieli'
 
 
-def load_env():
+def load_env(print_vars=False):
     """Load environment variables from a .env file, if present.
 
     If an .env file is found in the working directory, and the listed
@@ -25,5 +25,7 @@ def load_env():
                         os.environ[key] = ast.literal_eval(value)
                     else:
                         os.environ[key] = value
+                    if print_vars:
+                        print key, os.environ[key]
     except IOError:
         pass
