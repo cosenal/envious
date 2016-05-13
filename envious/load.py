@@ -17,7 +17,9 @@ def load_env():
         for v in variables:
             if '=' in v:
                 key, value = v.split('=', 1)
-                if not key in os.environ:
+                if key.startswith('#'):
+                    continue
+                if key not in os.environ:
                     if value.startswith('"') and value.endswith('"') or \
                                     value.startswith("'") and value.endswith("'"):
                         os.environ[key] = ast.literal_eval(value)
