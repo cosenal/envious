@@ -1,6 +1,7 @@
 from copy import copy
 import os
 import unittest
+from imp import reload
 
 __author__ = 'Matteo Danieli'
 
@@ -45,7 +46,7 @@ class EnviousTest(unittest.TestCase):
         assert os.environ[key] == value
 
     def _execute_script(self):
-        import sample_script
+        from . import sample_script
         sample_script = reload(sample_script)
         return sample_script.return_environment_variables()
 

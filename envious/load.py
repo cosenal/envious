@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import ast
 
@@ -26,6 +27,6 @@ def load_env(print_vars=False):
                     else:
                         os.environ[key] = value
                     if print_vars:
-                        print key, os.environ[key]
+                        print(key, os.environ[key])
     except IOError:
         pass
