@@ -13,4 +13,8 @@ setup(
     keywords=['env', 'environment', 'virtualenv', 'multiple', 'configuration'],
     packages=['envious'],
     license='MIT',
+    classifiers=[
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+    ],
 )
